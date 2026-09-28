@@ -1,4 +1,3 @@
-import formidable from 'formidable';
 const formidable = require('formidable');
 const { create, get, delId } = require('../model/todo');
 
@@ -21,6 +20,7 @@ exports.create = (req, res) => {
       return res.status(201).send({ data: newTask.rows[0] });
     } catch (error) {
       // if description cannot be added to database, send error
+      console.log(error);
       return res.status(400).json({
         error,
       });
