@@ -5,3 +5,5 @@ node_modules/
 .env
 # except the frontend's .env, which holds no secrets (dev-server workaround only)
 !view/.env
+
+.superpowers

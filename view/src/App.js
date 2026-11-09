@@ -52,31 +52,42 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <h1>To-Do List</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="text"
-          value={todo.description}
-          onChange={(event) =>
-            setTodo({ ...todo, description: event.target.value })
-          }
-        ></input>
-        <button type="submit">Add Todo</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <main className="card">
+        <h1>To-Do List</h1>
+        <p className="subtitle">Click a task to remove it</p>
+        <form className="todo-form" onSubmit={(e) => handleSubmit(e)}>
+          <input
+            type="text"
+            placeholder="Add a new task…"
+            aria-label="New task"
+            value={todo.description}
+            onChange={(event) =>
+              setTodo({ ...todo, description: event.target.value })
+            }
+          ></input>
+          <button type="submit">Add Todo</button>
+        </form>
+        {error && <p className="error">{error}</p>}
 
-      <ol>
-        {todoList?.map((todoItem) => (
-          <li
-            key={todoItem.todo_id}
-            onClick={() => {
-              handleDelete(todoItem.todo_id);
-            }}
-          >
-            {todoItem.description}
-          </li>
-        ))}
-      </ol>
+        {todoList?.length === 0 ? (
+          <p className="empty">No tasks yet</p>
+        ) : (
+          <ol className="todo-list">
+            {todoList?.map((todoItem) => (
+              <li
+                key={todoItem.todo_id}
+                className="todo-item"
+                title="Click to remove"
+                onClick={() => {
+                  handleDelete(todoItem.todo_id);
+                }}
+              >
+                {todoItem.description}
+              </li>
+            ))}
+          </ol>
+        )}
+      </main>
     </div>
   );
 };
