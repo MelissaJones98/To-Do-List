@@ -28,7 +28,7 @@ exports.create = (req, res) => {
   });
 };
 
-//Read: uses get() from todo.js
+// Read: uses get() from todo.js
 exports.read = async (req, res) => {
   try {
     const task = await get();
@@ -40,7 +40,7 @@ exports.read = async (req, res) => {
   }
 };
 
-//removeTodo: uses remove() from todo.js
+// removeTodo: uses remove() from todo.js
 exports.removeTodo = async (req, res) => {
   const id = Number(req.params.id);
   try {
