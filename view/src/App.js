@@ -9,47 +9,46 @@ const App = () => {
   const [todoList, setTodoList] = useState();
   const [error, setError] = useState();
 
-// fetchTodos: Uses getTodos from util
-const fetchTodos = async () => {
-  const res = await getTodos();
-  if (res.error) {
-    setError(res.error.name);
-  }
-  setTodoList(res.data);
-};
-
-// handleSubmit: Uses createTodo from util
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError();
-  const data = new FormData(e.currentTarget);
-  try {
-    data.set('description', todo.description);
-    data.set('created_at', `${new Date().toISOString()}`);
-    const newTodo = await createTodo(data);
-    if (newTodo.error) {
-      setError(newTodo.error);
+  // fetchTodos: Uses getTodos from util
+  const fetchTodos = async () => {
+    const res = await getTodos();
+    if (res.error) {
+      setError(res.error.name);
     }
-    setTodo({ description: '' });
-    fetchTodos();
-  } catch (err) {
-    setError(err);
-  }
-};
+    setTodoList(res.data);
+  };
 
-// handleDelete: Uses removeTodo from uti
-const handleDelete = async (id) => {
-  try {
-    await removeTodo(id);
-    fetchTodos();
-  } catch (err) {
-    setError(err);
-  }
-};
+  // handleSubmit: Uses createTodo from util
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError();
+    const data = new FormData(e.currentTarget);
+    try {
+      data.set('description', todo.description);
+      data.set('created_at', `${new Date().toISOString()}`);
+      const newTodo = await createTodo(data);
+      if (newTodo.error) {
+        setError(newTodo.error);
+      }
+      setTodo({ description: '' });
+      fetchTodos();
+    } catch (err) {
+      setError(err);
+    }
+  };
 
+  // handleDelete: Uses removeTodo from uti
+  const handleDelete = async (id) => {
+    try {
+      await removeTodo(id);
+      fetchTodos();
+    } catch (err) {
+      setError(err);
+    }
+  };
 
   useEffect(() => {
-    // Initialize todoList
+    fetchTodos();
   }, []);
   return (
     <div className="App">
