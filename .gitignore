@@ -3,3 +3,5 @@ node_modules/
 
 #ignore .env file
 .env
+# except the frontend's .env, which holds no secrets (dev-server workaround only)
+!view/.env
